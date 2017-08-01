@@ -8,14 +8,14 @@ module.exports = {
         app: './src/js/index.js',
         hello: './src/js/hello.js'
     },
-    plugins: [
-        new CleanWebpackPlugin(['./dist']),
-        new HtmlWebpackPlugin(HtmlWebpackPluginOptions)
-    ],
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, './dist/public')
     },
+    plugins: [
+        new CleanWebpackPlugin(['./dist']),
+        new HtmlWebpackPlugin(HtmlWebpackPluginOptions)
+    ],
     module: {
         rules: [
             {
