@@ -52,5 +52,7 @@ module.exports = {
 
     minify: {
         collapseWhitespace: true
-    }
+    },
+
+    hash: false //TODO: for production set true
 };

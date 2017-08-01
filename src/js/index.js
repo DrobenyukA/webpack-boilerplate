@@ -1,7 +1,7 @@
 import sayHello from './hello.js'
 
-let container = document.getElementById('app');
-let btn = document.createElement('BUTTON');
+var container = document.getElementById('app');
+var btn = document.createElement('BUTTON');
 
 container.innerHTML = "APP CONTAINER";
 
