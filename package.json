@@ -4,7 +4,7 @@
   "description": "boilerplates",
   "main": "index.html",
   "scripts": {
-    "start": "webpack-dev-server --open",
+    "dev": "webpack-dev-server --open",
     "build": "webpack"
   },
   "repository": {

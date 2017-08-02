@@ -1,3 +1,4 @@
-export default function sayHello (){
-  alert('Hello! \nHow are you?');
+export default function sayHello() {
+    alert('Hello user! \nHow are you?');
+    console.log('done')
 }
