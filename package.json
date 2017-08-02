@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "dev": "webpack-dev-server --open",
-    "build": "webpack"
+    "build": "webpack -p"
   },
   "repository": {
     "type": "git",

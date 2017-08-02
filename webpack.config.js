@@ -6,8 +6,10 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
     entry: {
-        app: './src/js/index.js',
-        hello: './src/js/hello.js'
+        app: [
+            './src/js/index.js',
+            './src/scss/main.scss'
+        ]
     },
     devtool: 'inline-source-map',
     devServer: {
@@ -18,7 +20,7 @@ module.exports = {
         new CleanWebpackPlugin(['./dist']),
         new HtmlWebpackPlugin(HtmlWebpackPluginOptions),
         new ExtractTextPlugin({
-            filename: 'styles/style.css',
+            filename: 'styles/styles.css',
             disable: false,
             allChunks: true
         }),
@@ -54,7 +56,7 @@ module.exports = {
         ]
     },
     output: {
-        filename: '[name].bundle.js',
+        filename: 'js/[name].bundle.js',
         path: path.resolve(__dirname, './dist/public')
     },
 };
