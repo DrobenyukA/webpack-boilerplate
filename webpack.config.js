@@ -2,20 +2,22 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackPluginOptions = require('./src/configs/html-webpack-plugin.js');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
     entry: {
-        app: './src/js/index.js',
-        hello: './src/js/hello.js'
+        app: './src/js/index.js'
     },
     devtool: 'inline-source-map',
     devServer: {
         contentBase: path.join(__dirname, "dist"),
-        port: 3000
+        port: 3000,
+        hot: true
     },
     plugins: [
         new CleanWebpackPlugin(['./dist']),
-        new HtmlWebpackPlugin(HtmlWebpackPluginOptions)
+        new HtmlWebpackPlugin(HtmlWebpackPluginOptions),
+        new webpack.HotModuleReplacementPlugin()
     ],
     module: {
         rules: [
