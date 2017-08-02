@@ -8,10 +8,7 @@ module.exports = {
         app: './src/js/index.js',
         hello: './src/js/hello.js'
     },
-    output: {
-        filename: '[name].bundle.js',
-        path: path.resolve(__dirname, './dist/public')
-    },
+    devtool: 'inline-source-map',
     plugins: [
         new CleanWebpackPlugin(['./dist']),
         new HtmlWebpackPlugin(HtmlWebpackPluginOptions)
@@ -32,5 +29,9 @@ module.exports = {
                 ]
             }
         ]
-    }
+    },
+    output: {
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, './dist/public')
+    },
 };
