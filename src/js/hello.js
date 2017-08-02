@@ -1,3 +1,3 @@
 export default function sayHello (){
-  alert('Hello');
+  alert('Hello! \nHow are you?');
 }
