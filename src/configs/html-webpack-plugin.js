@@ -1,3 +1,5 @@
+let production = (process.env.NODE_ENV === 'production');
+
 module.exports = {
     lang: 'en-US',
 
@@ -54,5 +56,5 @@ module.exports = {
         collapseWhitespace: true
     },
 
-    hash: false //TODO: for production set true
+    hash: production
 };
