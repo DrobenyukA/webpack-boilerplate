@@ -1,2 +1,5 @@
-# webpack-boilerplate
-Boilerplates
+# REACT-REDUX APP BOILERPLATE
+
+## Includes
+
+

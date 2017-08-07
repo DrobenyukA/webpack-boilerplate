@@ -1,10 +1,10 @@
 {
-  "name": "webpack-boilerplate",
+  "name": "webpack-react-boilerplate",
   "version": "0.0.0",
   "description": "boilerplates",
   "main": "index.html",
   "scripts": {
-    "dev": "webpack-dev-server --open",
+    "develop": "webpack-dev-server",
     "build": "NODE_ENV='production' webpack"
   },
   "repository": {
@@ -13,6 +13,9 @@
   },
   "keywords": [
     "Webpack",
+    "Bootstrap4",
+    "React",
+    "Redux",
     "boilerplate"
   ],
   "author": "Drobenyuk.A",
@@ -27,14 +30,11 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.30.1",
-    "html-webpack-template": "^5.6.0",
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "webpack": "^3.4.1",
     "webpack-dev-server": "^2.6.1"
   },
-  "dependencies": {
-    "lodash": "^4.17.4"
-  }
+  "dependencies": {}
 }

@@ -1,89 +1,73 @@
-const webpack = require('webpack');
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlWebpackPluginOptions = require('./src/configs/html-webpack-plugin.js');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const ExtractTextPluginOptions = require('./src/configs/extract-text-plugin.js');
+const OPTIONS = require('./src/configs/global'),
+    webpack = require('webpack'),
+    path = require('path'),
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
+    CleanWebpackPlugin = require('clean-webpack-plugin'),
+    ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-let production = (process.env.NODE_ENV === 'production');
+let htmlOptions = require( OPTIONS.SRC + '/configs/webpack/htmlOptions'),
+    cleanOptions = require( OPTIONS.SRC + '/configs/webpack/cleanOptions'),
+    uglifyOptions = require( OPTIONS.SRC + '/configs/webpack/uglifyOptions'),
+    serverOptions = require( OPTIONS.SRC + '/configs/webpack/serverOptions'),
+    styleOptions = require( OPTIONS.SRC + '/configs/webpack/styleOptions'),
+    commionChunkOptions = require( OPTIONS.SRC + '/configs/webpack/commionChunkOptions');
 
 module.exports = {
+
     entry: {
         app: [
-            './src/js/index.js',
-            './src/scss/main.scss'
-        ],
-        test: './src/js/test.js'
+            OPTIONS.SRC + '/js/index.js',
+            OPTIONS.SRC + '/scss/main.scss',
+        ]
+        //TODO: add bootstrap https://github.com/shakacode/bootstrap-loader
+        //TODO: add fontawesome https://github.com/gowravshekar/font-awesome-webpack
     },
-    plugins: [
-        new CleanWebpackPlugin(['./dist']),
-        new HtmlWebpackPlugin(HtmlWebpackPluginOptions),
-        new ExtractTextPlugin(ExtractTextPluginOptions),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'common'
-        })
-    ],
-    module: {
-        rules: [
+
+    output:{
+        filename: 'js/[name].bundle.js',
+        path: path.resolve(__dirname, OPTIONS.DIST)
+    },
+
+    module:{
+        rules:[
+            // TODO: add jsx loader and babel
             {
                 test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: [
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                sourceMap: !production
-                            }
-                        },
-                        {
-                            loader: 'sass-loader',
-                            options: {
-                                sourceMap: !production
-                            }
-                        }
-                    ]
-                })
-            },
-            {
-                test: /\.(png|svg|jpg|gif)$/,
-                use: [
-                    'file-loader'
-                ]
+                use: ExtractTextPlugin.extract(styleOptions.module) //["style-loader", "css-loader", "sass-loader"]
             }
+            // TODO: add image loader
+            // TODO: add fonts loader
         ]
     },
-    output: {
-        filename: 'js/[name].bundle.js',
-        path: path.resolve(__dirname, './dist/public')
-    },
+
+    plugins: [
+        // Responsible for cleaning dist folder
+        new CleanWebpackPlugin(OPTIONS.DIST, cleanOptions),
+
+        // Responsible for compiling index.html
+        new HtmlWebpackPlugin(htmlOptions),
+
+        // Responsible for extracting styles into file
+        new ExtractTextPlugin(styleOptions.plugin),
+
+        // Responsible for collection all double scripts into one file
+        new webpack.optimize.CommonsChunkPlugin(commionChunkOptions)
+    ]
+
 };
 
-/**
- * Profuction options
- */
 
-if (production) {
+if (OPTIONS.PRODUCTION_MODE) {
 
     module.exports.plugins.push(
-        new webpack.LoaderOptionsPlugin({
-            minimize: true,
-            debug: false
-        })
-    );
-
-    module.exports.plugins.push(
-        new webpack.optimize.UglifyJsPlugin()
+        // Responsible for uglify outputs
+        new webpack.optimize.UglifyJsPlugin(uglifyOptions)
     );
 
 } else {
 
     module.exports.devtool = 'inline-source-map';
 
-    module.exports.devServer = {
-        contentBase: path.join(__dirname, "/dist"),
-        port: 3000
-    };
+    module.exports.devServer = serverOptions;
 
 }
